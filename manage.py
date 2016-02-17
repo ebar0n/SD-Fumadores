@@ -29,7 +29,7 @@ if __name__ == '__main__':
     if type == '1':
         # Agente
         print ('Agente')
-        from agente import init
+        from agent import init
         init(get_port())
     else:
         # Fumador
@@ -44,5 +44,5 @@ if __name__ == '__main__':
                 os.system('clear')
 
         ip = input('Ip del agente: ')
-        from fumador import init
+        from smoker import init
         init(ip, get_port(), type)
