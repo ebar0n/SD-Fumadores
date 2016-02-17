@@ -17,10 +17,11 @@ La solución al problema se desarrollo en python, usando conexiones tcp para con
 
 Pasos previos:
 - Iniciar un proceso agente.
-- Iniciar los 3 proceso fumadore
+- Iniciar los 3 procesos fumadores
+
 Lógica usada:
 - Al momento de un fumador conectarse solicita de una vez los ingredientes necesarios para fumar.
-Una vez el agente detecta todos los fumadores conectados, selecciona aleatoriamente 2 ingredientes, e informa al fumador respectivo.
+- Una vez el agente detecta todos los fumadores conectados, selecciona aleatoriamente 2 ingredientes, e informa al fumador respectivo.
 - Dicho fumador hace uso del recurso y apenas termina le avisa al agente, para que vuelva a servir nuevos ingredientes.
 - En caso de que un fumador se desconecte, el agente se entera, pero si algún otro fumador estaba usando el recurso, termina de fumar y espera nuevamente a que todos los fumadores están conectados para dispensar nuevos ingredientes, en caso de que el fumador desconectado sea el que ocupa el recurso, se libera de una vez y espera a que vuelva a conectarse.
 - El agente dispensa una cantidad infinita de ingredientes, el proceso termina cuando el agente se desconecta.
