@@ -63,8 +63,10 @@ class MyTCPServerHandler(socketserver.BaseRequestHandler):
         _print('Fumador desconectado *{}*'.format(store.get(self.code)['name']))
         if self.rejected is False:
             store.get(self.code)['flag'] = False
-        global smoke
-        smoke = False
+        global smoke_code
+        if smoke_code == self.code:
+            global smoke
+            smoke = False
 
     def handle_timeout(self):
         print('tiempo de espera agotado')
