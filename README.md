@@ -1,11 +1,13 @@
 # SD-Fumadores
-Solución al problema de los fumadores.
+Solución al problema clásico *EL FUMADOR DE CIGARROS*.
 
 ### Descripción del problema
-A continuación se describen los requisitos para que los fumadores puedan fumar y el funcionamiento del proceso estanquero:
+Considere un sistema con tres procesos fumadores y un proceso agente:
 
-- Antes de fumar es necesario liar un cigarro, para ello el fumador necesita tres ingredientes: tabaco, papel y cerillas.
-- Uno de los fumadores tiene solamente papel, otro tiene solamente tabaco, y el otro tiene solamente cerillas.
-- El estanquero coloca aleatoriamente dos ingredientes diferentes de los tres que se necesitan para hacer un cigarro, desbloquea al fumador que tiene el tercer ingrediente y después se bloquea.
-- El fumador desbloqueado toma los dos ingredientes del mostrador, desbloquea al estanquero para que pueda seguir sirviendo ingredientes y fuma durante un tiempo después de liarse el cigarro.
-- El estanquero, cuando se desbloquea, vuelve a poner dos ingredientes aleatorios en el mostrador, y se repite el ciclo.
+- Cada fumador está continuamente enrollando y fumando cigarrillos.
+- Sin embargo, para enrollar y fumar un cigarrillo, el fumador necesita tres ingredientes: tabaco, papel, y fósforos.
+- Uno de los procesos fumadores tiene papel, otro tiene el tabaco y el tercero los fósforos.
+- El agente tiene una cantidad infinita de los tres materiales.
+- El agente coloca dos de los ingredientes sobre la mesa.
+- El fumador que tiene el ingrediente restante enrolla un cigarrillo y se lo fuma, avisando al agente cuando termina.
+- Entonces, el agente coloca dos de los tres ingredientes y se repite el ciclo.
