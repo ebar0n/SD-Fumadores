@@ -6,24 +6,24 @@ from utils import _print
 
 
 def process(code, request):
+    message = ''
     while True:
-        _print('Esperando {}!'.format(store.get(code)['required']))
-        request.send('need'.encode('UTF-8'))
+        if message != 'ack':
+            _print('Esperando {}!'.format(store.get(code)['required']))
+            request.send('need'.encode('UTF-8'))
 
-        while True:
-            message = request.recv(packet_size).decode('UTF-8')
-            if message == 'enable':
-                _print('Servido!')
-                time.sleep(time_sleep)
-                _print('Armando cigarro!')
-                time.sleep(time_sleep)
-                _print('Fumando!!!')
-                time.sleep(time_smoke)
-                request.send('enable'.encode('UTF-8'))
-
+        message = request.recv(packet_size).decode('UTF-8')
+        if message == 'enable':
+            _print('Servido!')
             time.sleep(time_sleep)
-            if message != 'ack':
-                break
+            request.send('ack'.encode('UTF-8'))
+            _print('Armando cigarro!')
+            time.sleep(time_sleep)
+            _print('Fumando!!!')
+            time.sleep(time_smoke)
+            request.send('enable'.encode('UTF-8'))
+        elif message == 'ack':
+            pass
 
         time.sleep(time_sleep)
 
@@ -41,7 +41,9 @@ def init(ip, port, code):
             process(code, request)
         else:
             _print('Rechazado por el agente.')
+
         request.close()
     except KeyboardInterrupt:
         _print('Cerrando conexiones...')
+        request.send('exit'.encode('UTF-8'))
         request.close()

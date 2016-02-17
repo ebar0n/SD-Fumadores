@@ -3,11 +3,12 @@ import time
 from random import choice
 
 import socketserver
-from storage import codes, store, time_sleep, packet_size
+from storage import codes, packet_size, store, time_sleep, time_smoke
 from utils import _print
 
 global smoke
 smoke = False
+global smoke_code
 
 
 class MyTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
@@ -34,7 +35,10 @@ class MyTCPServerHandler(socketserver.BaseRequestHandler):
             elif message == 'enable':
                 _print('{}: Termino de fumar!'.format(store.get(self.code)['name']))
                 self.smoke_released = True
-
+            elif message == 'ack':
+                time.sleep(time_smoke)
+            elif message == 'exit':
+                break
             time.sleep(time_sleep)
 
     def handle(self):
@@ -59,10 +63,11 @@ class MyTCPServerHandler(socketserver.BaseRequestHandler):
         _print('Fumador desconectado *{}*'.format(store.get(self.code)['name']))
         if self.rejected is False:
             store.get(self.code)['flag'] = False
+        global smoke
+        smoke = False
 
     def handle_timeout(self):
         print('tiempo de espera agotado')
-        pass
 
 
 def verify_smoking():
@@ -94,6 +99,7 @@ def init(port):
 
         while True:
             verify_smoking()
+            global smoke_code
             smoke_code = choice(codes)
 
             _print('Agente: Tengo disponible {}!'.format(
